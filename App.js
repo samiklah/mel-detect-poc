@@ -100,16 +100,11 @@ export default function App() {
       if (!response.cancelled) {
         const source = { uri: response.uri };
         setImage(source); // put image path to the state
-        //const imageTensor = await imageToTensor(source); // prepare the image
-        //const imageData = await response.arrayBuffer();
-        // console.log(source);
-        // console.log(response.uri);
-        // alert(response.uri);
+        
         const imgResponse = await fetch(response.uri, {}, { isBinary: true });
         const imageData = await imgResponse.arrayBuffer();
         const imageTensor = decodeJpeg(imageData);
-        //console.log(imageTensor);
-        //console.log(imageData);
+        
         const predictions = await model.predict(imageTensor); // send the image to the model
         setPredictions(predictions); // put model prediction to the state
       }
